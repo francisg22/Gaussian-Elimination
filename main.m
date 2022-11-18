@@ -26,11 +26,17 @@ testans = [8; -11; -3];
 % B is a matrix, 1xn.
 function ans = Gaussian(A, B);
   n = length(A);
-  
   for i = 2:n;
     for k = 1:i-1;
+      if(A(k, k) == 0)
+        temp = A(i, 1:end);
+        temp2 = B(i, 1);
+        A(i, 1:end) = A(k, 1:end);
+        B(i, 1) = B(k, 1);
+        A(k, 1:end) = temp;
+        B(k, 1) = temp2;
+      end
       scalar = -1 * A(i, k)/A(k, k);
-      
       A(i,(1:end)) += A(k, (1:end)) * scalar;
       B(i, 1) += B(k, 1) * scalar;
     end
@@ -50,12 +56,17 @@ function ans = Gaussian(A, B);
   ans = B;
 end
 
-an = Gaussian(sys2, sys2ans)
+an = Gaussian(test, testans)
 
 
 
-function ans = GaussianNeel(A, B)
-  
+function ans = Crammar(A, B)
+  Dx = copy(A)
+  for i = 1:length(A)
+    Dx(i,0)
+  end
+  Dy = copy(A)
+  Dz = copy(A)
 end
 % need a function to swap rows of matrix, multiply two rows by a scalar, and add two rows to each other.
 
