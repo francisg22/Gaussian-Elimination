@@ -59,8 +59,40 @@ function ans = Gaussian(A, B);
 end
 
 an = Gaussian(test, testans)
+  
 
 
+function ans = GaussianPivoting(A, B)
+ n = length(A);
+  for i = 2:n;
+    for k = 1:i-1;
+      if(A(k, k) == 0)
+        temp = A(i, 1:end);
+        temp2 = B(i, 1);
+        A(i, 1:end) = A(k, 1:end);
+        B(i, 1) = B(k, 1);
+        A(k, 1:end) = temp;
+        B(k, 1) = temp2;
+      end
+      scalar = -1 * A(i, k)/A(k, k);
+      A(i,(1:end)) += A(k, (1:end)) * scalar;
+      B(i, 1) += B(k, 1) * scalar;
+    end
+  end
+  for i = 2:n;
+    for k = 1:i-1;
+      scalar = -1 * A(k, i)/A(i, i);
+      A(k,(1:end)) += A(i, (1:end)) * scalar;
+      B(k, 1) += B(i, 1) * scalar;
+    end
+  end
+  for i = 1:n;
+    scalar = 1/A(i, i);
+    A(i, (1:end)) *= scalar;
+    B(i, 1) *= scalar;
+  end
+  ans = B;
+end
 
 function ans = Crammar(A, B)
 
@@ -79,9 +111,10 @@ function ans = Crammar(A, B)
     Dx(i,3) = B(i,1);
   end
 
-  disp(Dxres)
-  disp(Dxres)
-  
+  disp(Dx)
+  disp(Dy)
+  disp(Dz)
+
   Dxres = det(Dx);
   Dyres = det(Dy);
   Dzres = det(Dz);
