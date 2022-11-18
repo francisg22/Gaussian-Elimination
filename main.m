@@ -40,17 +40,21 @@ function ans = Gaussian(A, B)
   % 3, 2
   for i = 2:n;
     for k = 1:i-1;
-      A(i, k) = 999
-      % scalar = -1 * A(i, k)/A(k, k);
-      
-      % A(i,(1:end)) -= A(k, (1:end)) * scalar;
-      % B(1, i) -= B(1, k) * scalar;
+      scalar = -1 * A(k, i)/A(i, i);
+      A(k,(1:end)) += A(i, (1:end)) * scalar;
+      B(1, k) += B(1, i) * scalar;
     end
   end
-  ans = A;
+  for i = 1:n;
+    scalar = 1/A(i, i);
+    A(i, (1:end)) *= scalar;
+    B(1, i) *= scalar;
+  end
+  ans = B;
 end
 
 an = Gaussian(test, testans)
+
 
 % need a function to swap rows of matrix, multiply two rows by a scalar, and add two rows to each other.
 
