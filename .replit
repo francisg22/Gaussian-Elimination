@@ -1,0 +1,9 @@
+entrypoint = "main.m"
+
+hidden = [".octaverc", "octave-workspace"]
+
+[interpreter]
+command = ["octave", "--persist"]
+
+[nix]
+channel = "stable-21_11"
