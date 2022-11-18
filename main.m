@@ -1,8 +1,3 @@
-A = [1 1 1;
-    -1 -1 2;
-  -10001.1 -1 1];
-b = [3;0;-10001.1];
-A\b
 # hi guys
 
 sys = [1 1;
@@ -14,6 +9,13 @@ sys2 = [1 1 1;
         -1 -1 2;
         1 -1 -1];
 sys2ans = [3;0;-1];
+
+sys3 = [1 1 1;
+        -1 -1 2;
+        -10001.1 -1 1];
+sys3ans = [3;0;-10001.1];
+
+
 
 %scalars should be -1, 1, 1
 
@@ -61,13 +63,37 @@ an = Gaussian(test, testans)
 
 
 function ans = Crammar(A, B)
-  Dx = copy(A)
+
+  Dx = A;
   for i = 1:length(A)
-    Dx(i,0)
+    Dx(i,1) = B(i,1);
   end
-  Dy = copy(A)
-  Dz = copy(A)
+
+  Dy = A;
+  for i = 1:length(A)
+    Dx(i,2) = B(i,1);
+  end
+
+  Dz = A;
+  for i = 1:length(A)
+    Dx(i,3) = B(i,1);
+  end
+
+  disp(Dxres)
+  disp(Dxres)
+  
+  Dxres = det(Dx);
+  Dyres = det(Dy);
+  Dzres = det(Dz);
+  DA = det(A);
+
+  x = Dxres/DA;
+  y = Dyres/DA;
+  z = Dzres/DA;
+  ans = [x y z]
 end
+
+cramAns = Crammar(test, testans)
 % need a function to swap rows of matrix, multiply two rows by a scalar, and add two rows to each other.
 
 
