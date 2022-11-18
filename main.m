@@ -35,8 +35,11 @@ function ans = Gaussian(A, B)
       B(1, i) += B(1, k) * scalar;
     end
   end
-  for i = 1:n-1;
-    for k = 2:i;
+  % 2, 1
+  % 3, 1
+  % 3, 2
+  for i = 2:n;
+    for k = 1:i-1;
       A(i, k) = 999
       % scalar = -1 * A(i, k)/A(k, k);
       
